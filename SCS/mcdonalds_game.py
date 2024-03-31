@@ -1,6 +1,7 @@
 import pygame
 from cutscenefunctions import *
-from fallingfoodfunctions import *
+from food import Food
+from player import Player
 
 pygame.init()
 
@@ -20,6 +21,8 @@ boy = pygame.transform.rotozoom(boy, 0, 0.1)
 dad_text1 = pygame.image.load("images/dad_text1.png")
 dad_text1 = pygame.transform.rotozoom(dad_text1, 0, 0.5)
 
+player = Player()
+food_objects = [Food("fries")]
 
 clock = pygame.time.Clock()
 
@@ -34,6 +37,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    # reset the entire screen to white. 
+    screen.fill((255, 255, 255))
     
     if cutscene:
         # Display the correct cutscene. 
@@ -52,7 +58,23 @@ while running:
                 
     else:
         # McDonald's game. 
-        # Stretch goal: Velocity is different for each type of food. 
+        # Stretch goal: Velocity is different for each type of food.
+        # print("playing game. ")
+
+        for food in food_objects:
+            food.update()
+            food.display(screen)
+
+        player.update(pygame.key.get_pressed(), food_objects)
+        player.display(screen)
+
+
+        # Display score
+        font = pygame.font.Font(None, 36)
+        score_text = font.render(f"Score: {player.score}", True, (0, 0, 0))
+        screen.blit(score_text, (10, 10))
+
+        
 
 
     # flip() the display to put your work on screen
