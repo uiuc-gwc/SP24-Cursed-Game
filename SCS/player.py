@@ -14,14 +14,13 @@ class Player(pygame.sprite.Sprite):
         # self.rect is the rectangle around the image. 
         self.rect = self.image.get_rect(center=starting_position)
 
-        self.score = 0
-    
+        self.score = 0    
 
     def display(self, screen):
         screen.blit(self.image, self.rect)
 
     # You can use collierect to check if a player is colliding with a food object. 
-        
+    # https://stackoverflow.com/questions/29640685/how-do-i-detect-collision-in-pygame
     def isCollidingWith(self, food):
         return self.rect.colliderect(food.rect)
 

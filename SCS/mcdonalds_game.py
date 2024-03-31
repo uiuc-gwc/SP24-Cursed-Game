@@ -8,6 +8,9 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+# https://stackoverflow.com/questions/18948981/do-something-every-x-milliseconds-in-pygame  
+ACTION = pygame.event.custom_type() # our custom event that contains an action
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 bg_surface = pygame.image.load("images/tanvi_samiha_house_background.jpeg").convert()
@@ -63,9 +66,9 @@ while running:
         # print("playing game. ")
 
         # Create a new food object every 60 frames.
-        if pygame.time.get_ticks() % 240 == 0:
+        if pygame.time.get_ticks() % 60 == 0:
             print("created new food object")
-            food_objects.add(Food("fries"))
+            food_objects.add(Food("fries", SCREEN_WIDTH, SCREEN_HEIGHT))
 
         # Update the food objects
         food_objects.update()
@@ -81,9 +84,6 @@ while running:
         font = pygame.font.Font(None, 36)
         score_text = font.render(f"Score: {player.score}", True, (0, 0, 0))
         screen.blit(score_text, (10, 10))
-
-        
-
 
     # flip() the display to put your work on screen
     pygame.display.flip()
