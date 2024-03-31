@@ -13,17 +13,6 @@ ACTION = pygame.event.custom_type() # our custom event that contains an action
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-bg_surface = pygame.image.load("images/tanvi_samiha_house_background.jpeg").convert()
-bg_surface = pygame.transform.rotozoom(bg_surface, 0, 2.05)
-
-
-dad = pygame.image.load("images/dad.png")
-dad = pygame.transform.rotozoom(dad, 0, 0.25)
-boy = pygame.image.load("images/boiii.png")
-boy = pygame.transform.rotozoom(boy, 0, 0.1)
-dad_text1 = pygame.image.load("images/dad_text1.png")
-dad_text1 = pygame.transform.rotozoom(dad_text1, 0, 0.5)
-
 player = Player()
 # food_objects = [Food("fries")]
 food_objects = pygame.sprite.Group()
@@ -48,7 +37,11 @@ while running:
     if cutscene:
         # Display the correct cutscene. 
         if cutscene_slide_number == 0:
-            cutscene_slide_0(screen, bg_surface, dad, boy, dad_text1)
+            bg_surface_path = "images/tanvi_samiha_house_background.jpeg"
+            dad_path = "images/dad.png"
+            boy_path = "images/boiii.png"
+            dad_text1_path = "images/dad_text1.png"
+            cutscene_slide_0(screen, bg_surface_path, dad_path, boy_path, dad_text1_path)
 
         # If the space button is pressed, move to the next cutscene. 
         keys = pygame.key.get_pressed()
