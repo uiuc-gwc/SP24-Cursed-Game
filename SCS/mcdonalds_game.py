@@ -22,7 +22,8 @@ dad_text1 = pygame.image.load("images/dad_text1.png")
 dad_text1 = pygame.transform.rotozoom(dad_text1, 0, 0.5)
 
 player = Player()
-food_objects = [Food("fries")]
+# food_objects = [Food("fries")]
+food_objects = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
 
@@ -61,13 +62,20 @@ while running:
         # Stretch goal: Velocity is different for each type of food.
         # print("playing game. ")
 
-        for food in food_objects:
-            food.update()
-            food.display(screen)
+        # Create a new food object every 60 frames.
+        if pygame.time.get_ticks() % 240 == 0:
+            print("created new food object")
+            food_objects.add(Food("fries"))
 
+        # Update the food objects
+        food_objects.update()
+
+        # Update the player. 
         player.update(pygame.key.get_pressed(), food_objects)
-        player.display(screen)
 
+        # Draw everything on the screen. 
+        food_objects.draw(screen)
+        player.display(screen)
 
         # Display score
         font = pygame.font.Font(None, 36)
@@ -80,7 +88,8 @@ while running:
     # flip() the display to put your work on screen
     pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(30) 
 
 pygame.quit()
+
 
